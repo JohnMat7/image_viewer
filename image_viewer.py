@@ -11,12 +11,16 @@ root.iconbitmap('img/favicon.ico')
 my_img1 = ImageTk.PhotoImage(Image.open('img/instagram.jpg'))
 my_img2 = ImageTk.PhotoImage(Image.open('img/children.png'))
 my_img3 = ImageTk.PhotoImage(Image.open('img/apple.jpg'))
+my_img4 = ImageTk.PhotoImage(Image.open('img/messi.png'))
+my_img5 = ImageTk.PhotoImage(Image.open('img/ronaldo.png'))
 
-image_list = [my_img1, my_img2, my_img3]
+image_list = [my_img1, my_img2, my_img3, my_img4, my_img5]
 
 
 my_label = Label(image=my_img1)
 my_label.grid(row=0, column=0, columnspan=3)
+status_label = Label(root, text=f"image no.1 of {len(image_list)}")
+status_label.grid(row=2, column=1)
 
 
 def forward(image_number):
@@ -25,13 +29,16 @@ def forward(image_number):
     global button_back
     my_label.grid_forget()
     my_label = Label(image=image_list[image_number-1])
-    # my_label.grid(row=0, column=0, columnspan=3)
+
     button_forward = Button(
         root, text=">>", command=lambda: forward(image_number+1))
     button_back = Button(
         root, text="<<", command=lambda: back(image_number-1))
-    if image_number == 3:
+    if image_number == 5:
         button_forward = Button(root, text=">>", state=DISABLED)
+    status_label = Label(
+        root, text=f"image no. {image_number} of {len(image_list)}")
+    status_label.grid(row=2, column=1)
 
     my_label.grid(row=0, column=0, columnspan=3)
     button_back.grid(row=1, column=0)
@@ -44,13 +51,15 @@ def back(image_number):
     global button_back
     my_label.grid_forget()
     my_label = Label(image=image_list[image_number-1])
-    # my_label.grid(row=0, column=0, columnspan=3)
     button_forward = Button(
         root, text=">>", command=lambda: forward(image_number+1))
     button_back = Button(
         root, text="<<", command=lambda: back(image_number-1))
     if image_number == 1:
         button_back = Button(root, text=">>", state=DISABLED)
+    status_label = Label(
+        root, text=f"image no. {image_number} of {len(image_list)}")
+    status_label.grid(row=2, column=1)
 
     my_label.grid(row=0, column=0, columnspan=3)
     button_back.grid(row=1, column=0)
@@ -64,5 +73,6 @@ button_forward = Button(root, text=">>", command=lambda: forward(2))
 button_back.grid(row=1, column=0)
 button_exit.grid(row=1, column=1)
 button_forward.grid(row=1, column=2)
+
 
 root.mainloop()
